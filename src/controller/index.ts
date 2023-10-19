@@ -1,3 +1,3 @@
-import getAllProducts from './products.controller';
+import productsController from './products.controller';
 
-export default { getAllProducts };
+export default { productsController };

@@ -1,5 +1,5 @@
-import getAllProducts from './products.service';
+import productsService from './products.service';
 
 export default {
-  getAllProducts,
+  productsService,
 };
