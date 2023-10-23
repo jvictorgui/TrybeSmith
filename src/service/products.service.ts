@@ -1,6 +1,4 @@
-import ProductModel, { 
-  ProductInputtableTypes,
-  ProductSequelizeModel } from '../database/models/product.model';
+import ProductModel from '../database/models/product.model';
 import { Product } from '../types/Product';
 import { ServiceResponse } from '../types/ServiceResponse';
 
@@ -13,10 +11,14 @@ const getAllProducts = async ():Promise<ServiceResponse<Product[]>> => {
 
   return { data, status: 'SUCCESSFUL' };
 };
-const createNewProduct = async (product:ProductInputtableTypes):
-Promise<ProductSequelizeModel> => {
-  const newProduct = ProductModel.create(product);
-  return newProduct;
+const createNewProduct = async (product:Product):
+Promise<ServiceResponse<Product>> => {
+  const newProduct = await ProductModel.create(product);
+  if (!newProduct) {
+    return { status: 'INVALID_DATA', data: { message: 'Could not create product' } };
+  }
+
+  return { status: 'CREATED', data: newProduct.dataValues };
 };
 
 export default { createNewProduct, getAllProducts };
