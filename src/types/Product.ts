@@ -3,4 +3,5 @@ export type Product = {
   name: string;
   price: number;
   orderId: number;
+  message?: string;
 };
