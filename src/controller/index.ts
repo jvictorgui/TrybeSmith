@@ -1,3 +1,4 @@
 import productsController from './products.controller';
+import ordersController from './orders.controller';
 
-export default { productsController };
+export default { productsController, ordersController };

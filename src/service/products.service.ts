@@ -1,6 +1,7 @@
 import ProductModel from '../database/models/product.model';
 import { Product } from '../types/Product';
 import { ServiceResponse } from '../types/ServiceResponse';
+import validateNewProduct from '../validations/validateNewProduct';
 
 const getAllProducts = async ():Promise<ServiceResponse<Product[]>> => {
   const products = await ProductModel.findAll();
@@ -13,6 +14,10 @@ const getAllProducts = async ():Promise<ServiceResponse<Product[]>> => {
 };
 const createNewProduct = async (product:Product):
 Promise<ServiceResponse<Product>> => {
+  const validationError = validateNewProduct(product);
+  if (validationError) {
+    return { status: 'INVALID_DATA', data: { message: validationError } };
+  }
   const newProduct = await ProductModel.create(product);
   if (!newProduct) {
     return { status: 'INVALID_DATA', data: { message: 'Could not create product' } };

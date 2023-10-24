@@ -6,5 +6,8 @@ chai.use(chaiHttp);
 
 describe('POST /products', function () { 
   beforeEach(function () { sinon.restore(); });
+  it('should return 201 when product is created', async function () {
+    
+  })
 
 });
