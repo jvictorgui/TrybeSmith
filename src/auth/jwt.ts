@@ -1,24 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-const secret = process.env.JWT_SECRET || 'secret';
+type TokenPayload = { id: number, username: string };
 
-type TokenPayload = {
-  id: number,
-  username: string,
-};
+const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-function sign(payload: TokenPayload): string {
-  const token = jwt.sign(payload, secret);
+const sign = (payload:TokenPayload): string => jwt.sign(payload, JWT_SECRET);
 
-  return token;
-}
+const verify = (token: string): TokenPayload => jwt.verify(token, JWT_SECRET) as TokenPayload;
 
-function verify(token: string): TokenPayload {
-  const decode = jwt.verify(token, secret) as TokenPayload;
-  return decode;
-}
-
-export default {
-  sign,
-  verify,
-};
+export default { sign, verify };
